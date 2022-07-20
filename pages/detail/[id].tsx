@@ -18,6 +18,8 @@ interface IProps {
 const Detail = ({ postDetails }: IProps) => {
   const [post, setPost] = useState(postDetails);
   const [playing, setPlaying] = useState(false);
+  const [isVideoMuted, setisVideoMuted] = useState(false);
+
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const onVideoClick = () => {
@@ -29,6 +31,12 @@ const Detail = ({ postDetails }: IProps) => {
       setPlaying(true);
     }
   };
+
+  useEffect(() => {
+    if (post && videoRef?.current) {
+      videoRef.current.muted = isVideoMuted;
+    }
+  }, [post, isVideoMuted]);
 
   if (!post) return null;
 
@@ -57,6 +65,23 @@ const Detail = ({ postDetails }: IProps) => {
               </button>
             )}
           </div>
+        </div>
+        <div className="absolute bottom-5 lg:bottom-10 right-5 lg:right-10 curor-pointer">
+          {isVideoMuted ? (
+            <button>
+              <HiVolumeOff
+                onClick={() => setisVideoMuted(false)}
+                className="text-white text-2xl lg:text-4xl"
+              />
+            </button>
+          ) : (
+            <button>
+              <HiVolumeUp
+                onClick={() => setisVideoMuted(true)}
+                className="text-white text-2xl lg:text-4xl"
+              />
+            </button>
+          )}
         </div>
       </div>
     </div>
