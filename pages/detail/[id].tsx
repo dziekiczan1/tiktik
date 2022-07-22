@@ -11,6 +11,8 @@ import axios from "axios";
 import useAuthStore from "../../store/authStore";
 import { BASE_URL } from "../../utils";
 import { Video } from "../../types";
+import LikeButton from "../../components/LikeButton";
+import Comments from "../../components/Comments";
 
 interface IProps {
   postDetails: Video;
